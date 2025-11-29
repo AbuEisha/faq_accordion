@@ -1,18 +1,23 @@
+:root {
+  --bg-color: hsl(275, 100%, 97%);
+  --heading-color: hsl(292, 42%, 14%);
+  --paragraph-color: hsl(292, 16%, 49%);
+}
 * {
   box-sizing: border-box;
   margin: 0;
 }
-#root {
-  font-family: "WorkSans";
+.root {
+  font-family: "WorkSans", sans-serif;
   position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: hsl(275, 100%, 97%);
+  background-color: var(--bg-color);
 }
 
-#root::before {
+.root::before {
   content: "";
   position: absolute;
   top: 0;
@@ -21,24 +26,22 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 320px;
+  height: 20rem;
   width: 100%;
 }
 
 .app {
   position: relative;
   background-color: hsl(0, 100%, 100%);
-  width: 625px;
-  padding: 42px;
+  width: 22.9375rem;
+  padding: clamp(24px, 5vw, 42px);
   border-radius: 16px;
   box-shadow: 0 10px 10px hsl(292, 16%, 89%);
-  color: hsl(292, 42%, 14%);
 }
 
-@media (max-width: 600px) {
+@media (min-width: 600px) {
   .app {
-    width: 367px;
-    padding: 24px;
+    width: 39.1rem;
     border-radius: 10px;
   }
 }
@@ -47,50 +50,70 @@
   align-items: center;
   gap: 24px;
   font-size: 57px;
-  margin-bottom: 6px;
+  color: var(--heading-color);
+  margin-block-end: 6px;
 }
 
-details:not(:last-of-type) {
-  border-bottom: 1px solid hsl(275, 100%, 97%);
+.details:not(:last-of-type) {
+  border-bottom: 1px solid var(--bg-color);
 }
-details summary {
+.details .summary {
   list-style: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 24px;
+  padding-block-start: 24px;
   cursor: pointer;
 }
-details summary:hover,
-details summary:focus {
-  color: rgb(173 40 235);
-}
-details:not(:last-of-type) summary {
-  padding-bottom: 28px;
-}
-details summary h3 {
-  font-weight: 600;
-  line-height: 1.3;
+
+.details .summary:focus {
+  outline: none;
 }
 
-@media (max-width: 600px) {
-  details summary h3 {
-    font-size: 20px;
+.details:not(:last-of-type) .summary {
+  padding-block-end: 28px;
+}
+.details .summary .summary-title {
+  color: var(--heading-color);
+  font-weight: 600;
+  line-height: 1.3;
+  font-size: 1.25rem;
+}
+
+.details .summary:hover .summary-title {
+  color: rgb(173 40 235);
+}
+
+@media (min-width: 600px) {
+  .details .summary .summary-title {
+    font-size: 1.17rem;
   }
 }
 
-details:not(:last-of-type) .answer {
-  padding-bottom: 23px;
+.details:not(:last-of-type) .answer {
+  padding-block-end: 23px;
 }
 
-details:last-of-type .answer {
-  padding-top: 28px;
+.details:last-of-type .answer {
+  padding-block-start: 28px;
 }
 
-details .answer p {
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.details .answer p {
   font-weight: 400;
   line-height: 1.5;
-  color: hsl(292, 16%, 49%);
+  color: var(--paragraph-color);
 }
 
 @font-face {

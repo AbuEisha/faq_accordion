@@ -1,8 +1,10 @@
 import starIcon from "./assets/images/icon-star.svg";
 import "./App.css";
 import Question from "./Question";
+import { useState } from "react";
 
 function App() {
+  const [focusIndex, setFocusIndex] = useState(0);
   const questionsArray = [
     {
       question: "What is Frontend Mentor, and how will it help me?",
@@ -25,20 +27,35 @@ function App() {
         "The best place to get help is inside Frontend Mentor's Discord community. There's a help channel where you can ask questions and seek support from other community members.",
     },
   ];
+
+  const handleFocus = (direction) => {
+    if (typeof direction === "number") {
+      const newIndex = focusIndex + direction;
+      if (newIndex >= 0 && newIndex < questionsArray.length)
+        setFocusIndex(newIndex);
+    } else if (direction === "home") setFocusIndex(0);
+    else if (direction === "end") setFocusIndex(questionsArray.length - 1);
+  };
   return (
     <div className="app">
-      <h1>
-        <img src={starIcon} alt="Star Icon" />
-        FAQs
-      </h1>
-      {questionsArray.map((q, i) => (
-        <Question
-          key={i}
-          question={q.question}
-          answer={q.answer}
-          isFirst={i === 0}
-        />
-      ))}
+      <header>
+        <h1>
+          <img src={starIcon} alt="Star Icon" />
+          FAQs
+        </h1>
+      </header>
+      <main>
+        {questionsArray.map((q, i) => (
+          <Question
+            key={i}
+            question={q.question}
+            answer={q.answer}
+            isFirst={i === 0}
+            isFocused={i === focusIndex}
+            onFocus={handleFocus}
+          />
+        ))}
+      </main>
     </div>
   );
 }
